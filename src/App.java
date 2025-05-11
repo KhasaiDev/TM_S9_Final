@@ -4,7 +4,7 @@ import java.util.Scanner;
 public class App {
     // Definición de constantes
     // Cantidad máxima de entradas y asientos disponibles
-    static final int MAX_ENTRADAS = 100;
+    static final int MAX_ENTRADAS = 10;
     static final int MAX_ASIENTOS = 25;
 
     // Información de clientes
@@ -118,6 +118,8 @@ public class App {
             System.out.println("Asiento no disponible o no existe.");
             return;
         }
+
+        // Calcular el tipo de cliente y descuentos aplicables
         System.out.print("Ingrese su edad: ");
         int edad = scanner.nextInt();
         
@@ -149,15 +151,18 @@ public class App {
             descuento = 0.15f;
         }
 
+        // Registrar cliente
         int idCliente = idClienteAuto++;
         idsClientes[totalClientes] = idCliente;
         edadesClientes[totalClientes] = edad;
         tiposClientes[totalClientes] = tipoCliente;
         totalClientes++;
 
+        // Precio base según la sección del asiento
         float precioBase = 10000f;
         float precioFinal = precioBase * (1 - descuento);
 
+         // Registrar la venta
         int idVenta = idVentaAuto++;
         idsVentas[totalVentas] = idVenta;
         asientosVendidos[totalVentas] = asientos[indiceAsiento];
@@ -165,12 +170,14 @@ public class App {
         preciosFinales[totalVentas] = precioFinal;
         totalVentas++;
 
-        disponibilidadAsientos[indiceAsiento] = false;
+        disponibilidadAsientos[indiceAsiento] = false; // Marcar el asiento como vendido
 
+        // Registrar reserva
         reservasID.add(idReservaAuto++);
         reservasClienteID.add(idCliente);
         reservasAsiento.add(asientos[indiceAsiento]);
 
+        // La boleta:
         System.out.println("\n--- BOLETA ---");
         System.out.println("Cliente ID: " + idCliente);
         System.out.println("Edad: " + edad);
